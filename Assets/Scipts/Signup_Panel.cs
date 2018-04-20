@@ -8,7 +8,13 @@ using System.Collections.Generic;
 using System.IO;
 using Backtory.InAppPurchase.Public;
 
-public class Signup_Panel : MonoBehaviour {
+public class Signup_Panel : MonoBehaviour
+{
+
+    const string usernameKey = "userKey";
+    const string emailKey = "emailKey";
+    const string passKey = "passKey";
+    const string alreadyRegistered = "alreadyRegisteredKey";
 
     // Signup Panel
     public InputField usernameInput;
@@ -32,8 +38,6 @@ public class Signup_Panel : MonoBehaviour {
     public void onRegisterClick()
     {
 
-        BacktoryUser currentUser = BacktoryUser.CurrentUser;
-        userID = currentUser.UserId;
 
 
         // First create a user and fill his/her data
@@ -51,8 +55,15 @@ public class Signup_Panel : MonoBehaviour {
             // Checking result of operation
             if (response.Successful)
             {
-                Debug.Log("Register Success; new username is " + response.Body.Username);
-                // Get current user of system
+                // save local
+                PlayerPrefs.SetString(usernameKey, newUser.Username);
+                PlayerPrefs.SetString(emailKey, newUser.Email);
+                PlayerPrefs.SetString(passKey, newUser.Password);
+
+                // register complated and we sould login now
+                LoginProcess(newUser.Username, newUser.Password,true);
+
+
             }
             else if (response.Code == (int)BacktoryHttpStatusCode.Conflict)
             {
@@ -67,19 +78,64 @@ public class Signup_Panel : MonoBehaviour {
         });
     }
 
+    public void LogInClick()
+    {
+        string username = ""; // TODO: Get username from loginUsernameInputField
+        string pass = ""; // TODO: Get username from loginUsernameInputField
+        LoginProcess(username, pass, false);
+    }
+
+    public void LoginProcess(string username, string password,bool newUser)
+    {
+        BacktoryUser.LoginInBackground(username, password, loginResponse =>
+        {
+
+            // Login operation done (fail or success), handling it:
+            if (loginResponse.Successful)
+            {
+                // حالا آی دی کاربر را داریم و اگر اولین بار است که لاگین میکنیم باید سن و جنسیت را به بکتوری بفرستیم.
+                if (PlayerPrefs.GetInt(alreadyRegistered) != 1)
+                {
+                    if (newUser)
+                    {
+                        saveAgegen();
+                    }
+                    else
+                    {
+                        // کاربری بوده که قبلا عضو بوده ولی به دلیل عوض کردن گوشی یا پاک کردن دیتاهای برنامه اطلاعات پلیرپریف آن پاک شده است و اگر سن و جنسیت را لوکال لازم داریم اینجا میتوان از روی دیتابیس بکتوری آن اطلاعات را بخوانی
+                        //TODO: LoadAgeGen()
+                    }
+                }
+
+            }
+            else if (loginResponse.Code == (int)BacktoryHttpStatusCode.Unauthorized)
+            {
+                // Username 'mohx' with password '123456' is wrong
+                Debug.Log("Either username or password is wrong.");
+            }
+            else
+            {
+                // Operation generally failed, maybe internet connection issue
+                Debug.Log("Login failed for other reasons like network issues.");
+            }
+        });
+
+    }
+
     public void saveAgegen()
     {
 
         BacktoryObject genderage = new BacktoryObject("GenderAge");
         genderage["gender"] = m_DropdownValueage;
         genderage["age"] = m_DropdownValuegen;
-        genderage["userID"] = userID;
+        genderage["userID"] = BacktoryUser.CurrentUser.UserId;
 
-       
+
         genderage.SaveInBackground(response =>
         {
             if (response.Successful)
             {
+                PlayerPrefs.SetInt(alreadyRegistered, 1);
                 // successful save. good place for Debug.Log function.
 
             }
