@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E3DD27BD-70A6-6B6A-A738-05F816B6BA65}</ProjectGuid>
+    <ProjectGuid>{BC2C9B19-4BC5-2043-C9BC-461EA405E441}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -342,9 +342,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Mainapp.csproj">
-      <Project>{BE0930C9-D2E7-C17A-E748-61998AE79EA4}</Project>
-      <Name>Mainapp</Name>
+    <ProjectReference Include="MyFalingo.csproj">
+      <Project>{5DB09769-179B-8D4B-26C8-948CA607C19B}</Project>
+      <Name>MyFalingo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,8 @@
-﻿<Properties StartupConfiguration="{BE0930C9-D2E7-C17A-E748-61998AE79EA4}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scipts/ScrollSnapRect.cs">
+﻿<Properties StartupConfiguration="{5DB09769-179B-8D4B-26C8-948CA607C19B}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scipts/Signup_Panel.cs">
     <Files>
       <File FileName="Assets/Scipts/ScrollSnapRect.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scipts/Signup_Panel.cs" Line="76" Column="37" />
+      <File FileName="Assets/Scipts/Signup_Panel.cs" Line="36" Column="37" />
       <File FileName="Assets/Scipts/SaveStuff.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
@@ -13,4 +13,5 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Mainapp PreferredExecutionTarget="Unity.Editor" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.MyFalingo PreferredExecutionTarget="Unity.Editor" />
 </Properties>
