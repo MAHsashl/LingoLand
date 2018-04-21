@@ -17,36 +17,39 @@ public class Signup_Panel : MonoBehaviour
     const string alreadyRegistered = "alreadyRegisteredKey";
 
     // Signup Panel
-    public InputField usernameInput;
-    public InputField emailInput;
-    public InputField passwordInput;
-    int m_DropdownValueage;
-    int m_DropdownValuegen;
-    string userID;
+    public InputField usernameInputreg;
+    public InputField emailInputreg;
+    public InputField passwordInputreg;
+    public Dropdown ageDropDown;
+    public Dropdown sexDropDown;
 
-    public void GetAge(int valage)
+    // Login Panel
+    public InputField usernameInputlog;
+    public InputField passwordInputlog;
+
+    public void Start()
     {
-        m_DropdownValueage = valage;
-        Debug.Log(m_DropdownValueage);
+#if UNITY_EDITOR
+        PlayerPrefs.DeleteAll();
+#endif
+
+       // if(olduser){
+          //  LoginProcess();
+     //   }
+
     }
 
-    public void GetGen(int valgen)
-    {
-        m_DropdownValuegen = valgen;
-        Debug.Log(m_DropdownValuegen);
-    }
+
     public void onRegisterClick()
     {
-
-
 
         // First create a user and fill his/her data
         BacktoryUser newUser = new BacktoryUser
         {
 
-            Username = usernameInput.text,
-            Email = emailInput.text,
-            Password = passwordInput.text,
+            Username = usernameInputreg.text,
+            Email = emailInputreg.text,
+            Password = passwordInputreg.text,
 
         };
         // Registring user to backtory (in background)
@@ -60,7 +63,7 @@ public class Signup_Panel : MonoBehaviour
                 PlayerPrefs.SetString(emailKey, newUser.Email);
                 PlayerPrefs.SetString(passKey, newUser.Password);
 
-                // register complated and we sould login now
+                // register complated and we should login now
                 LoginProcess(newUser.Username, newUser.Password,true);
 
 
@@ -80,8 +83,8 @@ public class Signup_Panel : MonoBehaviour
 
     public void LogInClick()
     {
-        string username = ""; // TODO: Get username from loginUsernameInputField
-        string pass = ""; // TODO: Get username from loginUsernameInputField
+        string username = usernameInputlog.text; // TODO: Get username from loginUsernameInputField
+        string pass = passwordInputlog.text; // TODO: Get username from loginUsernameInputField
         LoginProcess(username, pass, false);
     }
 
@@ -93,17 +96,19 @@ public class Signup_Panel : MonoBehaviour
             // Login operation done (fail or success), handling it:
             if (loginResponse.Successful)
             {
-                // حالا آی دی کاربر را داریم و اگر اولین بار است که لاگین میکنیم باید سن و جنسیت را به بکتوری بفرستیم.
+                Debug.Log("Login Successful.");
+                //We have UserId and if it is the first time that he logs in, we should send age and gender to Backtory.
                 if (PlayerPrefs.GetInt(alreadyRegistered) != 1)
                 {
                     if (newUser)
                     {
                         saveAgegen();
                     }
+                    //If the user is a member of service and because of exchanging his phone or clearing his playerprefs' data,
+                    //we can read his age/gen data locally. 
                     else
                     {
-                        // کاربری بوده که قبلا عضو بوده ولی به دلیل عوض کردن گوشی یا پاک کردن دیتاهای برنامه اطلاعات پلیرپریف آن پاک شده است و اگر سن و جنسیت را لوکال لازم داریم اینجا میتوان از روی دیتابیس بکتوری آن اطلاعات را بخوانی
-                        //TODO: LoadAgeGen()
+                       //TODO: LoadAgeGen()
                     }
                 }
 
@@ -126,8 +131,8 @@ public class Signup_Panel : MonoBehaviour
     {
 
         BacktoryObject genderage = new BacktoryObject("GenderAge");
-        genderage["gender"] = m_DropdownValueage;
-        genderage["age"] = m_DropdownValuegen;
+        genderage["gender"] = sexDropDown.value;
+        genderage["age"] = ageDropDown.value;
         genderage["userID"] = BacktoryUser.CurrentUser.UserId;
 
 
