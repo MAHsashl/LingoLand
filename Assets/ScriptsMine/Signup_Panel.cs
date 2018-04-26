@@ -65,9 +65,8 @@ public class Signup_Panel : MonoBehaviour
 
         };
 
-        if(Regex.IsMatch(usernameInputreg.text, "^[a-zA-Z0-9]*$") && (usernameInputreg.text != "") && (emailInputreg.text != "") 
-           && (passwordInputreg.text != "") && (IsValidEmail(emailInputreg.text))){
-          
+        if(Regex.IsMatch(usernameInputreg.text, "^[a-zA-Z0-9]*$") && (usernameInputreg.text != "") && (emailInputreg.text != "") && (passwordInputreg.text != "") && (IsValidEmail(emailInputreg.text))){
+
             // Registring user to backtory (in background)
             newUser.RegisterInBackground(response =>
             {
@@ -109,7 +108,7 @@ public class Signup_Panel : MonoBehaviour
         }else if(!(IsValidEmail(emailInputreg.text)))
         {
             Showfalsemail();
-            Debug.Log("Oops");
+            //Debug.Log("Oops");
         }else if((passwordInputreg.text == ""))
         {
             Showemptypassword();
@@ -122,11 +121,27 @@ public class Signup_Panel : MonoBehaviour
     {
         string username = usernameInputlog.text; // TODO: Get username from loginUsernameInputField
         string pass = passwordInputlog.text; // TODO: Get username from loginUsernameInputField
-        LoginProcess(username, pass, false);
+        if (Regex.IsMatch(usernameInputlog.text, "^[a-zA-Z0-9]*$") && (usernameInputlog.text != "") && (passwordInputlog.text != "")){
+            LoginProcess(username, pass, false);
+        }else if (!(Regex.IsMatch(usernameInputlog.text, "^[a-zA-Z0-9]*$")))
+        {
+            Showenglishusername();
+            //Debug.Log("Oops");
+        }else if ((usernameInputlog.text == ""))
+        {
+            Showemptyusername();
+            //Debug.Log("Oops");
+        }else if ((passwordInputlog.text == ""))
+        {
+            Showemptypassword();
+            //Debug.Log("Oops");
+        }
+
     }
 
     public void LoginProcess(string username, string password,bool newUser)
     {
+        
         BacktoryUser.LoginInBackground(username, password, loginResponse =>
         {
 
@@ -217,8 +232,12 @@ public class Signup_Panel : MonoBehaviour
     {
         try
         {
-            MailAddress mail = new MailAddress(email);
-            return true;
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(email);
+            if (match.Success)
+                return true;
+            else
+                return false;
         }
         catch (FormatException)
         {
