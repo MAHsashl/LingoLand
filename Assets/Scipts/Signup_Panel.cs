@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 using Backtory.InAppPurchase.Public;
+using System.Text.RegularExpressions;
+
 
 public class Signup_Panel : MonoBehaviour
 {
@@ -26,6 +28,9 @@ public class Signup_Panel : MonoBehaviour
     // Login Panel
     public InputField usernameInputlog;
     public InputField passwordInputlog;
+
+    //Popup Window
+    public GameObject window;
 
     public void Start()
     {
@@ -52,33 +57,42 @@ public class Signup_Panel : MonoBehaviour
             Password = passwordInputreg.text,
 
         };
-        // Registring user to backtory (in background)
-        newUser.RegisterInBackground(response =>
-        {
-            // Checking result of operation
-            if (response.Successful)
-            {
-                // save local
-                PlayerPrefs.SetString(usernameKey, newUser.Username);
-                PlayerPrefs.SetString(emailKey, newUser.Email);
-                PlayerPrefs.SetString(passKey, newUser.Password);
 
-                // register complated and we should login now
-                LoginProcess(newUser.Username, newUser.Password,true);
+         if(Regex.IsMatch(usernameInputreg.text, "^[a-zA-Z0-9]*$") ){
+          
+            // Registring user to backtory (in background)
+            newUser.RegisterInBackground(response =>
+            {
+                // Checking result of operation
+                if (response.Successful)
+                {
+                    // save local
+                    PlayerPrefs.SetString(usernameKey, newUser.Username);
+                    PlayerPrefs.SetString(emailKey, newUser.Email);
+                    PlayerPrefs.SetString(passKey, newUser.Password);
+
+                    // register complated and we should login now
+                    LoginProcess(newUser.Username, newUser.Password, true);
 
 
-            }
-            else if (response.Code == (int)BacktoryHttpStatusCode.Conflict)
-            {
-                // Username is invalid
-                Debug.Log("Bad username; a user with this username already exists.");
-            }
-            else
-            {
-                // General failure
-                Debug.Log("Registration failed; for network or some other reasons.");
-            }
-        });
+                }
+                else if (response.Code == (int)BacktoryHttpStatusCode.Conflict)
+                {
+                    // Username is invalid
+                    Debug.Log("Bad username; a user with this username already exists.");
+                }
+                else
+                {
+                    // General failure
+                    Debug.Log("Registration failed; for network or some other reasons.");
+                }
+            });
+        } 
+        else {
+            Show();
+            //Debug.Log("Oops");
+        }
+
     }
 
     public void LogInClick()
@@ -150,4 +164,10 @@ public class Signup_Panel : MonoBehaviour
             }
         });
     }
+
+    public void Show(){
+        
+        window.SetActive(true);
+    }
+
 }
