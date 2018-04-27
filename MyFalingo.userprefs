@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{5DB09769-179B-8D4B-26C8-948CA607C19B}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ScriptsMine/Signup_Panel.cs">
     <Files>
-      <File FileName="Assets/ScriptsMine/Signup_Panel.cs" Line="216" Column="6" />
+      <File FileName="Assets/ScriptsMine/Signup_Panel.cs" Line="152" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

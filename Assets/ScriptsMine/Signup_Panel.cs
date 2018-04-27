@@ -35,6 +35,15 @@ public class Signup_Panel : MonoBehaviour
     public GameObject emptyemail;
     public GameObject emptypassword;
     public GameObject falsemail;
+    public GameObject forgotpass;
+    public GameObject wrongusernamepass;
+    public GameObject englishusernamelog;
+    public GameObject emptyusernamelog;
+    public GameObject emptypasswordlog;
+    public GameObject netdownlog;
+    public GameObject baduser;
+    public GameObject netdownregister;
+
 
 
 
@@ -44,13 +53,14 @@ public class Signup_Panel : MonoBehaviour
 #if UNITY_EDITOR
         PlayerPrefs.DeleteAll();
 #endif
-
-       // if(olduser){
-          //  LoginProcess();
-     //   }
-
+        //load local
+        if (PlayerPrefs.GetInt(alreadyRegistered) == 1)
+        {
+            string savedusername = PlayerPrefs.GetString(usernameKey);
+            string savedpass = PlayerPrefs.GetString(passKey);
+            LoginProcess(savedusername, savedpass, true);
+        }
     }
-
 
     public void onRegisterClick()
     {
@@ -85,11 +95,13 @@ public class Signup_Panel : MonoBehaviour
                 }
                 else if (response.Code == (int)BacktoryHttpStatusCode.Conflict)
                 {
+                    Showbaduser();
                     // Username is invalid
                     Debug.Log("Bad username; a user with this username already exists.");
                 }
                 else
                 {
+                    Shownetdownregister();
                     // General failure
                     Debug.Log("Registration failed; for network or some other reasons.");
                 }
@@ -121,6 +133,7 @@ public class Signup_Panel : MonoBehaviour
     {
         string username = usernameInputlog.text; // TODO: Get username from loginUsernameInputField
         string pass = passwordInputlog.text; // TODO: Get username from loginUsernameInputField
+
         if (Regex.IsMatch(usernameInputlog.text, "^[a-zA-Z0-9]*$") && (usernameInputlog.text != "") && (passwordInputlog.text != "")){
             LoginProcess(username, pass, false);
         }else if (!(Regex.IsMatch(usernameInputlog.text, "^[a-zA-Z0-9]*$")))
@@ -167,18 +180,20 @@ public class Signup_Panel : MonoBehaviour
             }
             else if (loginResponse.Code == (int)BacktoryHttpStatusCode.Unauthorized)
             {
+                Showwrongmailusername();
                 // Username 'mohx' with password '123456' is wrong
                 Debug.Log("Either username or password is wrong.");
             }
             else
             {
+                Shownetdownlog();
                 // Operation generally failed, maybe internet connection issue
                 Debug.Log("Login failed for other reasons like network issues.");
             }
         });
 
     }
-
+    //Function for save age and gender
     public void saveAgegen()
     {
 
@@ -202,7 +217,7 @@ public class Signup_Panel : MonoBehaviour
             }
         });
     }
-
+    //functions for popup windows
     public void Showenglishusername(){
         
         englishusername.SetActive(true);
@@ -227,7 +242,47 @@ public class Signup_Panel : MonoBehaviour
 
         falsemail.SetActive(true);
     }
+    public void Showforgotpass()
+    {
 
+        forgotpass.SetActive(true);
+    }
+    public void Showwrongmailusername()
+    {
+        
+        wrongusernamepass.SetActive(true);
+    }
+    public void Showenglishusernamelog()
+    {
+
+        englishusernamelog.SetActive(true);
+    }
+    public void Showemptyusernamelog()
+    {
+
+        emptyusernamelog.SetActive(true);
+    }
+    public void Showemptypasswordlog()
+    {
+
+        emptypasswordlog.SetActive(true);
+    }
+    public void Shownetdownlog()
+    {
+
+        netdownlog.SetActive(true);
+    }
+    public void Showbaduser()
+    {
+
+        baduser.SetActive(true);
+    }
+    public void Shownetdownregister()
+    {
+
+        netdownregister.SetActive(true);
+    }
+    //Email address validation function
     bool IsValidEmail(string email)
     {
         try
@@ -243,5 +298,23 @@ public class Signup_Panel : MonoBehaviour
         {
             return false;
         }
+    }
+    //Forgetting password function
+    public void onForgotpassClick()
+    {
+        string username = usernameInputlog.text;
+
+        // Requesting forget password to backtory
+        BacktoryUser.ForgotPasswordInBackground(username, response => {
+            if (response.Successful)
+            {
+                Showforgotpass();
+                //Debug.Log("Go to your mail inbox and verify your request.");
+            }
+            else
+            {
+                Debug.Log("failed; " + response.Message);
+            }
+        });
     }
 }
