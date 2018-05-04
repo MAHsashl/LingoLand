@@ -346,6 +346,7 @@
     <Compile Include="Assets\Scripts\UPersian\Scripts\EGG.cs" />
     <Compile Include="Assets\Scripts\UPersian\Scripts\Utils\UPersianUtils.cs" />
     <Compile Include="Assets\ScriptsMine\Fa.cs" />
+    <Compile Include="Assets\ScriptsMine\MessageBoxEx.cs" />
     <Compile Include="Assets\ScriptsMine\ScrollSnapRect.cs" />
     <Compile Include="Assets\ScriptsMine\Signup_Panel.cs" />
     <Compile Include="Assets\ScriptsMine\TranslatorEditor.cs" />

@@ -9,6 +9,7 @@ using System.IO;
 using Backtory.InAppPurchase.Public;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
+using UnityEngine.SceneManagement;
 
 public class Signup_Panel : MonoBehaviour
 {
@@ -29,22 +30,9 @@ public class Signup_Panel : MonoBehaviour
     public InputField usernameInputlog;
     public InputField passwordInputlog;
 
-    //Popup Window
-    public GameObject englishusername;
-    public GameObject emptyusername;
-    public GameObject emptyemail;
-    public GameObject emptypassword;
-    public GameObject falsemail;
-    public GameObject forgotpass;
-    public GameObject wrongusernamepass;
-    public GameObject englishusernamelog;
-    public GameObject emptyusernamelog;
-    public GameObject emptypasswordlog;
-    public GameObject netdownlog;
-    public GameObject baduser;
-    public GameObject netdownregister;
-
-
+    // Popup Window
+    public MessageBoxEx myMessageBox;
+    public MessageBoxEx myMessageBoxlogin;
 
 
 
@@ -53,7 +41,7 @@ public class Signup_Panel : MonoBehaviour
 #if UNITY_EDITOR
         PlayerPrefs.DeleteAll();
 #endif
-        //load local
+        // load local
         if (PlayerPrefs.GetInt(alreadyRegistered) == 1)
         {
             string savedusername = PlayerPrefs.GetString(usernameKey);
@@ -64,7 +52,6 @@ public class Signup_Panel : MonoBehaviour
 
     public void onRegisterClick()
     {
-
         // First create a user and fill his/her data
         BacktoryUser newUser = new BacktoryUser
         {
@@ -95,36 +82,44 @@ public class Signup_Panel : MonoBehaviour
                 }
                 else if (response.Code == (int)BacktoryHttpStatusCode.Conflict)
                 {
-                    Showbaduser();
+                    myMessageBox.SetMessage("نام کاربری وارد شده موجود می باشد.");
+                    // Showbaduser();
                     // Username is invalid
                     Debug.Log("Bad username; a user with this username already exists.");
                 }
                 else
                 {
-                    Shownetdownregister();
+                    myMessageBox.SetMessage("مشکلی در شبکه بوجود آمده، لطفا دوباره تلاش کنید.");
+                    // Shownetdownregister();
                     // General failure
                     Debug.Log("Registration failed; for network or some other reasons.");
                 }
             });
-        }else if(!(Regex.IsMatch(usernameInputreg.text, "^[a-zA-Z0-9]*$")))
-        {
-            Showenglishusername();
-            //Debug.Log("Oops");
+        }else if(!(Regex.IsMatch(usernameInputreg.text, "^[a-zA-Z0-9]*$"))){
+            
+            myMessageBox.SetMessage("لطفا نام کاربری خود را انگلیسی وارد کنید.");
+            // Showenglishusername();
+            // Debug.Log("Oops");
         }else if((usernameInputreg.text == "")){
-            Showemptyusername();
-            //Debug.Log("Oops");
-        }else if((emailInputreg.text == ""))
-        {
-            Showemptyemail();
-            //Debug.Log("Oops");
-        }else if(!(IsValidEmail(emailInputreg.text)))
-        {
-            Showfalsemail();
-            //Debug.Log("Oops");
-        }else if((passwordInputreg.text == ""))
-        {
-            Showemptypassword();
-            //Debug.Log("Oops");
+            
+            myMessageBox.SetMessage("لطفا نام کاربری خود را وارد کنید.");
+            // Showemptyusername();
+            // Debug.Log("Oops");
+        }else if((emailInputreg.text == "")){
+
+            myMessageBox.SetMessage("لطفا ایمیل خود را وراد کنید.");
+            // Showemptyemail();
+            // Debug.Log("Oops");
+        }else if(!(IsValidEmail(emailInputreg.text))){
+
+            myMessageBox.SetMessage("ایمیل وارد شده صحیح نمی باشد.");
+            // Showfalsemail();
+            // Debug.Log("Oops");
+        }else if((passwordInputreg.text == "")){
+
+            myMessageBox.SetMessage("لطفا کلمه عبور خود را وارد کنید.");
+            // Showemptypassword();
+            // Debug.Log("Oops");
         }
 
     }
@@ -135,18 +130,23 @@ public class Signup_Panel : MonoBehaviour
         string pass = passwordInputlog.text; // TODO: Get username from loginUsernameInputField
 
         if (Regex.IsMatch(usernameInputlog.text, "^[a-zA-Z0-9]*$") && (usernameInputlog.text != "") && (passwordInputlog.text != "")){
+            
             LoginProcess(username, pass, false);
-        }else if (!(Regex.IsMatch(usernameInputlog.text, "^[a-zA-Z0-9]*$")))
-        {
-            Showenglishusername();
+
+        }else if (!(Regex.IsMatch(usernameInputlog.text, "^[a-zA-Z0-9]*$"))){
+            
+            myMessageBoxlogin.SetMessage("لطفا نام کاربری خود را انگلیسی وارد کنید.");
+            //Showenglishusername();
             //Debug.Log("Oops");
         }else if ((usernameInputlog.text == ""))
         {
-            Showemptyusername();
+            myMessageBoxlogin.SetMessage("لطفا نام کاربری خود را وارد کنید.");
+            //Showemptyusername();
             //Debug.Log("Oops");
         }else if ((passwordInputlog.text == ""))
         {
-            Showemptypassword();
+            myMessageBoxlogin.SetMessage("لطفا کلمه عبور خود را وارد کنید.");
+            //Showemptypassword();
             //Debug.Log("Oops");
         }
 
@@ -162,15 +162,16 @@ public class Signup_Panel : MonoBehaviour
             if (loginResponse.Successful)
             {
                 Debug.Log("Login Successful.");
-                //We have UserId and if it is the first time that he logs in, we should send age and gender to Backtory.
+               // SceneManager.LoadScene("MainMenu");
+                // We have UserId and if it is the first time that he logs in, we should send age and gender to Backtory.
                 if (PlayerPrefs.GetInt(alreadyRegistered) != 1)
                 {
                     if (newUser)
                     {
                         saveAgegen();
                     }
-                    //If the user is a member of service and because of exchanging his phone or clearing his playerprefs' data,
-                    //we can read his age/gen data locally. 
+                    // If the user is a member of service and because of exchanging his phone or clearing his playerprefs' data,
+                    // we can read his age/gen data locally. 
                     else
                     {
                        //TODO: LoadAgeGen()
@@ -180,20 +181,22 @@ public class Signup_Panel : MonoBehaviour
             }
             else if (loginResponse.Code == (int)BacktoryHttpStatusCode.Unauthorized)
             {
-                Showwrongmailusername();
+                myMessageBoxlogin.SetMessage("نام کاربری یا کلمه عبور وارد شده صحیح نمی باشد.");
+                // Showwrongmailusername();
                 // Username 'mohx' with password '123456' is wrong
                 Debug.Log("Either username or password is wrong.");
             }
             else
             {
-                Shownetdownlog();
+                myMessageBoxlogin.SetMessage("مشکلی در شبکه بوجود آمده، لطفا دوباره تلاش کنید.");
+                // Shownetdownlog();
                 // Operation generally failed, maybe internet connection issue
                 Debug.Log("Login failed for other reasons like network issues.");
             }
         });
 
     }
-    //Function for save age and gender
+    // Function for save age and gender
     public void saveAgegen()
     {
 
@@ -217,72 +220,9 @@ public class Signup_Panel : MonoBehaviour
             }
         });
     }
-    //functions for popup windows
-    public void Showenglishusername(){
-        
-        englishusername.SetActive(true);
-    }
-    public void Showemptyusername()
-    {
+    // functions for popup windows
 
-        emptyusername.SetActive(true);
-    }
-    public void Showemptyemail()
-    {
-
-        emptyemail.SetActive(true);
-    }
-    public void Showemptypassword()
-    {
-
-        emptypassword.SetActive(true);
-    }
-    public void Showfalsemail()
-    {
-
-        falsemail.SetActive(true);
-    }
-    public void Showforgotpass()
-    {
-
-        forgotpass.SetActive(true);
-    }
-    public void Showwrongmailusername()
-    {
-        
-        wrongusernamepass.SetActive(true);
-    }
-    public void Showenglishusernamelog()
-    {
-
-        englishusernamelog.SetActive(true);
-    }
-    public void Showemptyusernamelog()
-    {
-
-        emptyusernamelog.SetActive(true);
-    }
-    public void Showemptypasswordlog()
-    {
-
-        emptypasswordlog.SetActive(true);
-    }
-    public void Shownetdownlog()
-    {
-
-        netdownlog.SetActive(true);
-    }
-    public void Showbaduser()
-    {
-
-        baduser.SetActive(true);
-    }
-    public void Shownetdownregister()
-    {
-
-        netdownregister.SetActive(true);
-    }
-    //Email address validation function
+    // Email address validation function
     bool IsValidEmail(string email)
     {
         try
@@ -299,7 +239,7 @@ public class Signup_Panel : MonoBehaviour
             return false;
         }
     }
-    //Forgetting password function
+    // Forgetting password function
     public void onForgotpassClick()
     {
         string username = usernameInputlog.text;
@@ -308,8 +248,9 @@ public class Signup_Panel : MonoBehaviour
         BacktoryUser.ForgotPasswordInBackground(username, response => {
             if (response.Successful)
             {
-                Showforgotpass();
-                //Debug.Log("Go to your mail inbox and verify your request.");
+                myMessageBoxlogin.SetMessage("کلمه عبور جدید به ایمیلت ارسال شد.");
+                // Showforgotpass();
+                // Debug.Log("Go to your mail inbox and verify your request.");
             }
             else
             {

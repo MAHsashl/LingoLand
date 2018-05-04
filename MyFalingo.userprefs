@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{5DB09769-179B-8D4B-26C8-948CA607C19B}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ScriptsMine/Signup_Panel.cs">
     <Files>
-      <File FileName="Assets/ScriptsMine/Signup_Panel.cs" Line="152" Column="9" />
+      <File FileName="Assets/ScriptsMine/Signup_Panel.cs" Line="165" Column="18" />
+      <File FileName="Assets/ScriptsMine/MessageBoxEx.cs" Line="10" Column="11" />
+      <File FileName="Assets/ScriptsMine/ScrollSnapRect.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
