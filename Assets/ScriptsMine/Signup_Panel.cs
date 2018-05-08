@@ -162,7 +162,7 @@ public class Signup_Panel : MonoBehaviour
             if (loginResponse.Successful)
             {
                 Debug.Log("Login Successful.");
-               // SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene("MainMenu");
                 // We have UserId and if it is the first time that he logs in, we should send age and gender to Backtory.
                 if (PlayerPrefs.GetInt(alreadyRegistered) != 1)
                 {
