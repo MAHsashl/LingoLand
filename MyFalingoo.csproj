@@ -105,14 +105,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scipts\Fa.cs" />
-    <Compile Include="Assets\Scipts\SaveStuff.cs" />
-    <Compile Include="Assets\Scipts\ScrollSnapRect.cs" />
-    <Compile Include="Assets\Scipts\Signup_Panel.cs" />
-    <Compile Include="Assets\Scipts\TranslatorEditor.cs" />
     <Compile Include="Assets\Scripts\UPersian\Scripts\Components\RtlText.cs" />
     <Compile Include="Assets\Scripts\UPersian\Scripts\EGG.cs" />
     <Compile Include="Assets\Scripts\UPersian\Scripts\Utils\UPersianUtils.cs" />
+    <Compile Include="Assets\ScriptsMine\Category.cs" />
+    <Compile Include="Assets\ScriptsMine\Fa.cs" />
+    <Compile Include="Assets\ScriptsMine\Lesson.cs" />
+    <Compile Include="Assets\ScriptsMine\MessageBoxEx.cs" />
+    <Compile Include="Assets\ScriptsMine\Question.cs" />
+    <Compile Include="Assets\ScriptsMine\ScrollSnapRect.cs" />
+    <Compile Include="Assets\ScriptsMine\Signup_Panel.cs" />
+    <Compile Include="Assets\ScriptsMine\TranslatorEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Backtory\Core\Backtory.xml" />
