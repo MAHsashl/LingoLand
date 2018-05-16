@@ -347,11 +347,17 @@
     <Compile Include="Assets\Scripts\UPersian\Scripts\Utils\UPersianUtils.cs" />
     <Compile Include="Assets\ScriptsMine\Category.cs" />
     <Compile Include="Assets\ScriptsMine\Fa.cs" />
+    <Compile Include="Assets\ScriptsMine\GameMng.cs" />
     <Compile Include="Assets\ScriptsMine\Lesson.cs" />
     <Compile Include="Assets\ScriptsMine\MessageBoxEx.cs" />
+    <Compile Include="Assets\ScriptsMine\MyCategoryClass.cs" />
+    <Compile Include="Assets\ScriptsMine\MyLessonClass.cs" />
+    <Compile Include="Assets\ScriptsMine\MyQuestionClass.cs" />
     <Compile Include="Assets\ScriptsMine\Question.cs" />
     <Compile Include="Assets\ScriptsMine\ScrollSnapRect.cs" />
     <Compile Include="Assets\ScriptsMine\Signup_Panel.cs" />
+    <Compile Include="Assets\ScriptsMine\Singleton.cs" />
+    <Compile Include="Assets\ScriptsMine\Toolbox.cs" />
     <Compile Include="Assets\ScriptsMine\TranslatorEditor.cs" />
   </ItemGroup>
   <ItemGroup>
