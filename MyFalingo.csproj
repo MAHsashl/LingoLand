@@ -350,10 +350,8 @@
     <Compile Include="Assets\ScriptsMine\GameMng.cs" />
     <Compile Include="Assets\ScriptsMine\Lesson.cs" />
     <Compile Include="Assets\ScriptsMine\MessageBoxEx.cs" />
-    <Compile Include="Assets\ScriptsMine\MyCategoryClass.cs" />
-    <Compile Include="Assets\ScriptsMine\MyLessonClass.cs" />
-    <Compile Include="Assets\ScriptsMine\MyQuestionClass.cs" />
     <Compile Include="Assets\ScriptsMine\Question.cs" />
+    <Compile Include="Assets\ScriptsMine\Save_Load.cs" />
     <Compile Include="Assets\ScriptsMine\ScrollSnapRect.cs" />
     <Compile Include="Assets\ScriptsMine\Signup_Panel.cs" />
     <Compile Include="Assets\ScriptsMine\Singleton.cs" />

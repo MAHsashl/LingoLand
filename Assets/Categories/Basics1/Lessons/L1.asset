@@ -11,6 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a52f2b729c64871bfd6295d380fd22, type: 3}
   m_Name: L1
   m_EditorClassIdentifier: 
-  Mode: 0
-  type: 0
+  questions:
+  - {fileID: 11400000, guid: 38522e9d554fa45ed9a9e51e2b48e4d4, type: 2}
+  - {fileID: 11400000, guid: 905b5e52dd32c4c04a813f86d4080838, type: 2}
+  - {fileID: 11400000, guid: 928b99fc364524d32a68e5a65e76305b, type: 2}
+  - {fileID: 11400000, guid: 4ca7ae2c4c17641f59e90f22f02dbd19, type: 2}
+  - {fileID: 11400000, guid: 16e9c930ae90f4c1c905ddb84bf96c42, type: 2}
+  Lmode: 0
+  Ltype: 0
   title: man, woman, I, am, a, boy, girl
