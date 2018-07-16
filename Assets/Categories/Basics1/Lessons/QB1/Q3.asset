@@ -17,10 +17,12 @@ MonoBehaviour:
   Mode: 0
   type: 0
   structure: 0
-  correctAnswer: 4
+  correctAnswer: 1
   options:
   - g
   - b
   - vvvv
   - mm
+  picoptions: []
   pics: []
+  UserGaveRightAnswer: 0

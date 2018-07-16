@@ -13,14 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestionNum: 0
   Title: "\u0646\u0645\u0645\u0633\u06A9\u06A9"
-  Que: 
+  Que: fdfdf
   Mode: 0
   type: 0
   structure: 0
-  correctAnswer: 3
-  options:
-  - h
-  - jj
-  - hgg
-  - ff
-  pics: []
+  correctAnswer: 1
+  options: []
+  picoptions: []
+  pics:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  UserGaveRightAnswer: 0

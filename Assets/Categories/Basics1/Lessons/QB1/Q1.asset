@@ -13,14 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestionNum: 0
   Title: "\u0645\u0646"
-  Que: 
+  Que: reeeerweqww
   Mode: 0
   type: 0
-  structure: 0
-  correctAnswer: 0
-  options:
-  - a
-  - g
-  - hh
-  - jj
-  pics: []
+  structure: 1
+  correctAnswer: 1
+  options: []
+  picoptions: []
+  pics:
+  - {fileID: 21300000, guid: c3c7335b168054cd1b7ac28a47a6f49e, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  UserGaveRightAnswer: 0

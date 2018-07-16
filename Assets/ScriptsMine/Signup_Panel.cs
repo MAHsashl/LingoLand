@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using System.IO;
 using Backtory.InAppPurchase.Public;
 using System.Text.RegularExpressions;
@@ -33,8 +33,6 @@ public class Signup_Panel : MonoBehaviour
     // Popup Window
     public MessageBoxEx myMessageBox;
     public MessageBoxEx myMessageBoxlogin;
-
-
 
     public void Start()
     {

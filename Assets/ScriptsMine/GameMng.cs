@@ -5,6 +5,16 @@ using UnityEngine.UI;
 using System.Linq;
 
 public class GameMng : MonoBehaviour {
+
+    public AudioSource Source;
+    public AudioClip CorrectSound;
+    public AudioClip WrongSound;
+
+    public GameObject[] Checkmarks;
+
+    public GameObject ProgBar;
+
+    public float delay;
     
     public GameObject CategoryScreen;
     public GameObject LessonSelectionScreen;
@@ -27,12 +37,11 @@ public class GameMng : MonoBehaviour {
     public Text QPicQueText;
 
     // For pic question options' texts
-    /*
     public Text QPicOptionText1;
     public Text QPicOptionText2;
     public Text QPicOptionText3;
     public Text QPicOptionText4;
-*/
+
     // For pic question options' sprites
     public Image QPicOptionSprite1;
     public Image QPicOptionSprite2;
@@ -40,15 +49,21 @@ public class GameMng : MonoBehaviour {
     public Image QPicOptionSprite4;
 
 
-
-
     public int CurrentQuestionIndex;
+    public int TotalNumberOfCorrectAnswers;
 
     // For choice question options
     public Text QOptionText1;
     public Text QOptionText2;
     public Text QOptionText3;
     public Text QOptionText4;
+
+    public int TotalNumberOfQuestions = 3;
+    public List<Question> AnsweredQuestions;
+
+    public Text ResultText;
+
+    public Image ProgressBarFill;
 
     public void ShowCategoryScreen(){
         
@@ -57,6 +72,7 @@ public class GameMng : MonoBehaviour {
         ChoiceQuestionScreen.SetActive(false);
         PicQuestionScreen.SetActive(false);
         ResultsScreen.SetActive(false);
+        ProgBar.SetActive(false);
           
     }
 
@@ -68,6 +84,7 @@ public class GameMng : MonoBehaviour {
         ChoiceQuestionScreen.SetActive(false);
         PicQuestionScreen.SetActive(false);
         ResultsScreen.SetActive(false);
+        ProgBar.SetActive(false);
 
         Ltext1.text = selectedCategory.lessons[0].title;
         Ltext2.text = selectedCategory.lessons[1].title;
@@ -83,17 +100,18 @@ public class GameMng : MonoBehaviour {
         ChoiceQuestionScreen.SetActive(true);
         PicQuestionScreen.SetActive(false);
         ResultsScreen.SetActive(false);
+        ProgBar.SetActive(true);
 
     }
-
+  
     public void ShowPicQuestionScreen()
     {
-
         CategoryScreen.SetActive(false);
         LessonSelectionScreen.SetActive(false);
         ChoiceQuestionScreen.SetActive(false);
         PicQuestionScreen.SetActive(true);
         ResultsScreen.SetActive(false);
+        ProgBar.SetActive(true);
     }
 
     public void ShowResultsScreen()
@@ -104,7 +122,16 @@ public class GameMng : MonoBehaviour {
         ChoiceQuestionScreen.SetActive(false);
         PicQuestionScreen.SetActive(false);
         ResultsScreen.SetActive(true);
+        ProgBar.SetActive(false);
+        // ShowTotalPoints();
 
+    }
+
+    public void PlaySound(AudioClip clip, float Volume)
+    {
+        Source.clip = clip;
+        Source.volume = Volume;
+        Source.Play();
     }
 
     Category selectedCategory;
@@ -121,7 +148,7 @@ public class GameMng : MonoBehaviour {
         System.Random rnd = new System.Random();
 
         QuestionList = selectedLesson.questions.OrderBy(x => rnd.Next()).Take(3).ToList();
-
+     //   QuestionList = selectedLesson.questions
         CurrentQuestionIndex = 0;
         SelectQuestionPanel();
 
@@ -152,25 +179,32 @@ public class GameMng : MonoBehaviour {
         QPicOptionSprite2.sprite = QuestionList[CurrentQuestionIndex].pics[1];
         QPicOptionSprite3.sprite = QuestionList[CurrentQuestionIndex].pics[2];
         QPicOptionSprite4.sprite = QuestionList[CurrentQuestionIndex].pics[3];
+
+        // Buttons' texts
+        QPicOptionText1.text = QuestionList[CurrentQuestionIndex].picoptions[0];
+        QPicOptionText2.text = QuestionList[CurrentQuestionIndex].picoptions[1];
+        QPicOptionText3.text = QuestionList[CurrentQuestionIndex].picoptions[2];
+        QPicOptionText4.text = QuestionList[CurrentQuestionIndex].picoptions[3];
     }
    
     public void ShowNextQuestion(){
 
 
-        if(CurrentQuestionIndex <= 2){
+        if (CurrentQuestionIndex < 2)
+        {
 
             CurrentQuestionIndex++;
+            SelectQuestionPanel();
         }
         else
-            ShowResultsScreen();
-        
-
-        //SelectQuestionPanel();
+            DisplayResultScreen();
         
     }
 
     public void SelectQuestionPanel(){
-
+      
+        // Debug.Log(QuestionList.ElementAt(0));
+        // Debug.Log(QuestionList[1]);
         if(QuestionList[CurrentQuestionIndex].structure == QuestionStruct.Choice)
         {
             ShowChoiceQuestionScreen();
@@ -183,9 +217,85 @@ public class GameMng : MonoBehaviour {
         }
     }
 
+    public void AnswerButtonHandler(int index)
+    {
+        StartCoroutine(VerifyAnswer(index));
+    }
 
+    public IEnumerator VerifyAnswer(int index)
+    {
+        //GetComponent<Button>().interactable = false;
+        if(index == QuestionList[CurrentQuestionIndex].correctAnswer)
+        {
+            TotalNumberOfCorrectAnswers++;
+            UpdateProgress();
+
+            if (QuestionList[CurrentQuestionIndex].structure == QuestionStruct.Choice)
+                Checkmarks[index - 1].GetComponent<Image>().color = Color.green;
+            else
+                Checkmarks[index + 3].GetComponent<Image>().color = Color.green;
+
+            PlaySound(CorrectSound , 0.5f);
+            
+            yield return new WaitForSeconds(delay);
+
+            if (QuestionList[CurrentQuestionIndex].structure == QuestionStruct.Choice)
+                Checkmarks[index - 1].GetComponent<Image>().color = Color.white;
+            else
+                Checkmarks[index + 3].GetComponent<Image>().color = Color.white;
+            
+            
+            ShowNextQuestion();
+        }
+        else
+        {
+            if (QuestionList[CurrentQuestionIndex].structure == QuestionStruct.Choice)
+            {
+                Checkmarks[index - 1].GetComponent<Image>().color = Color.red;
+                Checkmarks[(QuestionList[CurrentQuestionIndex].correctAnswer) - 1].GetComponent<Image>().color = Color.green; 
+            }
+                
+            else
+            {
+                Checkmarks[index + 3].GetComponent<Image>().color = Color.red;
+                Checkmarks[(QuestionList[CurrentQuestionIndex].correctAnswer) + 3].GetComponent<Image>().color = Color.green; 
+            }
+             
+            PlaySound(WrongSound, 0.2f); 
+
+            yield return new WaitForSeconds(delay);
+
+            if (QuestionList[CurrentQuestionIndex].structure == QuestionStruct.Choice)
+            {
+                Checkmarks[index - 1].GetComponent<Image>().color = Color.white;
+                Checkmarks[(QuestionList[CurrentQuestionIndex].correctAnswer) - 1].GetComponent<Image>().color = Color.white;
+            }
+
+            else
+            {
+                Checkmarks[index + 3].GetComponent<Image>().color = Color.white;
+                Checkmarks[(QuestionList[CurrentQuestionIndex].correctAnswer) + 3].GetComponent<Image>().color = Color.white;
+            }
+                
+            
+            ShowNextQuestion(); 
+        }
+    }
+
+    public void DisplayResultScreen()
+    {       
+        ResultText.text = string.Format("{0}", TotalNumberOfCorrectAnswers);
+        ShowResultsScreen();
+    }
+
+    public void UpdateProgress()
+    {
+        float progress = (float)TotalNumberOfCorrectAnswers / (float)TotalNumberOfQuestions ;
+        ProgressBarFill.fillAmount = progress;
+    }
 	void Start () {
 
+        UpdateProgress();
         ShowCategoryScreen();
 	}
 	
@@ -194,3 +304,4 @@ public class GameMng : MonoBehaviour {
 		
 	}
 }
+ 

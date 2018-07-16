@@ -18,7 +18,9 @@ public class Question : ScriptableObject {
     public QuestionStruct structure;
     public int correctAnswer;
     public List<string> options;
+    public List<string> picoptions;
     public List<Sprite> pics;
+    public int UserGaveRightAnswer;
 }
 
 
