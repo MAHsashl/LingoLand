@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum QuestionMode { Easy, Intermed, Diffy }
-public enum QuestionType { Basics1, Basics2, Animal}
-public enum QuestionStruct {Choice, Pic }
+public enum QuestionType { Actions, Basics2, Animal}
+public enum QuestionStruct {Choice, Pic}
 
 
 [CreateAssetMenu(fileName = "Question", menuName = "", order = 1)]

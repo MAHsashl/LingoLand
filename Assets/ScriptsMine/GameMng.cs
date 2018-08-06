@@ -28,6 +28,7 @@ public class GameMng : MonoBehaviour {
 
 
     public List<Question> QuestionList;
+    public TextToSpeech tts;
 
     // For choice question Title
     public Text QTitleText1;
@@ -58,7 +59,7 @@ public class GameMng : MonoBehaviour {
     public Text QOptionText3;
     public Text QOptionText4;
 
-    public int TotalNumberOfQuestions = 3;
+    public int TotalNumberOfQuestions = 10; // Equal to 3 
     public List<Question> AnsweredQuestions;
 
     public Text ResultText;
@@ -147,7 +148,7 @@ public class GameMng : MonoBehaviour {
         selectedLesson = selectedCategory.lessons[index];
         System.Random rnd = new System.Random();
 
-        QuestionList = selectedLesson.questions.OrderBy(x => rnd.Next()).Take(3).ToList();
+        QuestionList = selectedLesson.questions.OrderBy(x => rnd.Next()).Take(10).ToList(); // Equal to 3
      //   QuestionList = selectedLesson.questions
         CurrentQuestionIndex = 0;
         SelectQuestionPanel();
@@ -190,7 +191,7 @@ public class GameMng : MonoBehaviour {
     public void ShowNextQuestion(){
 
 
-        if (CurrentQuestionIndex < 2)
+        if (CurrentQuestionIndex < 9) //Equal to 2
         {
 
             CurrentQuestionIndex++;
@@ -303,5 +304,13 @@ public class GameMng : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void Speak()
+    {
+        tts.Speak(QPicQueText.text, (string msg) =>
+        {
+            tts.ShowToast(msg);
+        });
+    }
 }
  

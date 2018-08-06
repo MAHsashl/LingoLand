@@ -342,6 +342,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="MyFalingo.Plugins.csproj">
+      <Project>{2F5203D4-A672-C593-7DEC-8A8450FA8F31}</Project>
+      <Name>MyFalingo.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Scripts\UPersian\Scripts\Components\RtlText.cs" />
     <Compile Include="Assets\Scripts\UPersian\Scripts\EGG.cs" />
     <Compile Include="Assets\Scripts\UPersian\Scripts\Utils\UPersianUtils.cs" />
@@ -357,6 +363,7 @@
     <Compile Include="Assets\ScriptsMine\Singleton.cs" />
     <Compile Include="Assets\ScriptsMine\Toolbox.cs" />
     <Compile Include="Assets\ScriptsMine\TranslatorEditor.cs" />
+    <Compile Include="Assets\test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Backtory\Core\Backtory.xml" />

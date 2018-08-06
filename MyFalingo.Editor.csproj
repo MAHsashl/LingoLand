@@ -342,6 +342,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="MyFalingo.Plugins.csproj">
+      <Project>{2F5203D4-A672-C593-7DEC-8A8450FA8F31}</Project>
+      <Name>MyFalingo.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="MyFalingo.csproj">
       <Project>{5DB09769-179B-8D4B-26C8-948CA607C19B}</Project>
       <Name>MyFalingo</Name>
