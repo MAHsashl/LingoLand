@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{5DB09769-179B-8D4B-26C8-948CA607C19B}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ScriptsMine/GameMng.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ScriptsMine/Question.cs">
     <Files>
       <File FileName="Assets/ScriptsMine/Question.cs" Line="7" Column="40" />
       <File FileName="Assets/ScriptsMine/Toolbox.cs" Line="8" Column="6" />
@@ -7,7 +7,7 @@
       <File FileName="Assets/ScriptsMine/Lesson.cs" Line="8" Column="25" />
       <File FileName="Assets/ScriptsMine/Save_Load.cs" Line="39" Column="36" />
       <File FileName="Assets/ScriptsMine/Signup_Panel.cs" Line="35" Column="43" />
-      <File FileName="Assets/ScriptsMine/GameMng.cs" Line="209" Column="1" />
+      <File FileName="Assets/ScriptsMine/GameMng.cs" Line="244" Column="80" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

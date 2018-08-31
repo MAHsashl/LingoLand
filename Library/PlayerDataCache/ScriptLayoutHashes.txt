@@ -3,7 +3,9 @@ SceneListBegin?
 Assets/Scroll.unity
 Assets/MainMenu.unity
 SceneListEnd?
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.test
 55981fe574115747cd6d8d8d13c87642 Assembly-CSharp.dll:.Category
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.TextToSpeech
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -156,5 +158,3 @@ f30b574056612461195782de944e0b73 Assembly-CSharp.dll:.Toolbox
 769e576fcd3f60fa29a2cccb9e8127d9 Assembly-CSharp.dll:UPersian.Components.RtlText
 a8ee87bcd9cd9fd15a38f9434c37e17f Assembly-CSharp.dll:.ScrollSnapRect
 05524b8f659e7bfe5756d1335fec24ba Backtory.InAppPurchase.dll:Backtory.Unity.BacktoryIapBehaviour
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.test
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.TextToSpeech

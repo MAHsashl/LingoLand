@@ -361,9 +361,9 @@
     <Compile Include="Assets\ScriptsMine\ScrollSnapRect.cs" />
     <Compile Include="Assets\ScriptsMine\Signup_Panel.cs" />
     <Compile Include="Assets\ScriptsMine\Singleton.cs" />
+    <Compile Include="Assets\ScriptsMine\test.cs" />
     <Compile Include="Assets\ScriptsMine\Toolbox.cs" />
     <Compile Include="Assets\ScriptsMine\TranslatorEditor.cs" />
-    <Compile Include="Assets\test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Backtory\Core\Backtory.xml" />
