@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum QuestionMode { Easy, Intermed, Diffy }
-public enum QuestionType { Animals, Basics2}
+public enum QuestionType { Animals, Actions, Colors, Food, Fruits, BodyParts, Weather, Toys, Sports, Clothes, Jobs, Transport, SchoolThings, Objects}
 public enum QuestionStruct {Choice, Pic}
 
 
